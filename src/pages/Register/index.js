@@ -16,14 +16,8 @@ function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      await axios.post("https://ironrest.herokuapp.com/whatsapp", form);
-    } catch (error) {
-      console.log(error);
-    }
+  async function handleSubmit() {
+    console.log("handleSubmit");
   }
 
   async function userExist(e) {
@@ -34,9 +28,20 @@ function Register() {
       const newArray = response.data.filter((usersName) =>
         usersName.userName.includes(form.userName)
       );
+      console.log(newArray);
       if (newArray.lenght > 0) {
-        console.log("existe");
-        navigate ("/messages")
+        navigate(`/messages/${newArray[0]._id}`);
+        return;
+      } else {
+        try {
+          const response = await axios.post(
+            "https://ironrest.herokuapp.com/whatsapp",
+            form
+          );
+          navigate(`/messages/${response.data.insertedId}`);
+        } catch (error) {
+          console.log(error);
+        }
       }
 
       return false;
@@ -48,9 +53,9 @@ function Register() {
 
   function loginUser(e) {
     e.preventDefault();
-
+    console.log(!userExist());
     if (!userExist()) {
-      handleSubmit(e);
+      handleSubmit();
     }
   }
 
@@ -70,7 +75,7 @@ function Register() {
           onChange={handleChange}
         />
 
-        <Link to="/messages">
+        <Link to="/messages/:messagesID">
           <button onClick={loginUser}>Login</button>
         </Link>
       </form>
