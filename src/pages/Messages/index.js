@@ -33,10 +33,10 @@ function Messages() {
             </p>
 
             <form onSubmit={handleSubmit}>
-                <lable>Message</lable>
+                <label>Message</label>
                 <textarea name="message" value={form.message} onChange={handleChange}/>
 
-                <lable>Hours</lable>
+                <label>Hours</label>
                 <input
                     name="hours"
                     type="time"
@@ -44,7 +44,7 @@ function Messages() {
                     onChange={handleChange}
                 />
 
-                <lable>Recipient</lable>
+                <label>Recipient</label>
                 <input
                     name="recipient"
                     value={form.recipient}
