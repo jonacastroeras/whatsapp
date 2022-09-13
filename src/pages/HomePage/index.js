@@ -37,9 +37,9 @@ function HomePage() {
         <>
             <div className="homeBody">
                 <img src={whiteLogo} alt="" />
-                <div style={{ background: 'white', padding: '16px' }}>
+                {/* <div style={{ background: 'white', padding: '16px' }}>
                     <QRCode value={qrCode} />
-                </div>
+                </div> */}
                 <div className="buttonGroup">
                     <Link to="/register">
                         Get Started
