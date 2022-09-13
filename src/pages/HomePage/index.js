@@ -1,5 +1,6 @@
 // import {Client} from "whatsapp-web.js";
 import whiteLogo from '../../img/whatstimelogowhite.png'
+import {Link} from "react-router-dom";
 function HomePage() {
     // const chromium = require('chrome-aws-lambda')
     // const { Client } = require('whatsapp-web.js');
@@ -13,14 +14,20 @@ function HomePage() {
     // });
     //
     // client.initialize();
-    return(
+    return (
         <>
             <div className="homeBody">
-                <h2>Tudo Otimooooo</h2>
                 <img src={whiteLogo} alt=""/>
+                <div className="buttonGroup">
+                    <Link to="/register">
+                        Get Started
+                    </Link>
+                    <Link to="/register">
+                        Register
+                    </Link>
+                </div>
             </div>
         </>
     )
-
 }
 export default HomePage;
