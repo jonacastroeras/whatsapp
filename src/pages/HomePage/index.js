@@ -11,7 +11,7 @@ function HomePage() {
     useEffect(() => {
         async function getQrCode() {
             try {
-                const getQrCode = await axios.get("http://localhost:3100/qrcode")
+                const getQrCode = await axios.get("http://localhost:3100/qrcodej")
                 setQrCode(getQrCode.data.qrCode)
             } catch (error) {
                 console.log("Server is down")
