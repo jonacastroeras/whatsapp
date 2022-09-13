@@ -35,6 +35,11 @@ code {
     height: 100vh;
 }
 
+.columnFlex {
+    display: flex;
+    flex-direction: column;
+}
+
 .homeBody > img {
     width: 10vw;
 }
@@ -48,7 +53,7 @@ code {
     margin-right: 1vh;
 }
 
-.buttonGroup > a {
+a {
     cursor: pointer;
     width: 12vh;
     padding: 2vh 3vh 2vh 3vh;
@@ -61,7 +66,30 @@ code {
     transition: background 0.6s; /* For modern browsers */
 }
 
-.buttonGroup > a:hover {
+a:hover {
     background: white;
     color: var(--primary);
+}
+
+.formGroup{
+    padding: 5%;
+    text-align: center;
+    color: white;
+}
+
+.formGroup > label{
+    background-color: var(--primary);
+    padding: 3;
+}
+
+.formGroup > input{
+    padding: 5%;
+    border-radius: 5vh;
+    border: none;
+    width: 30vh;
+    margin-top: 3%;
+}
+
+.formGroup:last-child{
+    margin-top: 5%;
 }
