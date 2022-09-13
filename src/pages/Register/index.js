@@ -29,7 +29,7 @@ function Register() {
         usersName.userName.includes(form.userName)
       );
       console.log(newArray);
-      if (newArray.lenght > 0) {
+      if (newArray.length > 0) {
         navigate(`/messages/${newArray[0]._id}`);
         return;
       } else {
