@@ -4,7 +4,7 @@ import axios from "axios";
 import QRCode from "react-qr-code";
 
 function Register() {
-  const [usersName, setUsersName] = useState([]);
+  const [users, setUsers] = useState([]);
   const [qrCode, setQrCode] = useState("");
   const [showQrCode, setShowQrCode] = useState(false);
   const [userId, setUserId] = useState("");
@@ -13,6 +13,8 @@ function Register() {
     password: "",
     messages: [],
   });
+
+  
 
   async function getQrCode(receivedUserId) {
     try {
@@ -27,8 +29,30 @@ function Register() {
 
   const navigate = useNavigate();
 
+  // useEffect(()=>{
+
+  //   function checkUserExist(e) {
+  //     console.log(e.target.value)
+  //     try {
+  //       users.forEach((user) => {
+  //         console.log("dentro do map")
+  //         if (user.userName.toLowerCase() === e.target.name.toLowerCase()) {
+  //           return window.alert("the name is taken");
+  //         }
+  //       });
+        
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+
+  //   checkUserExist(e)
+  // },[])
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
+
+    // checkUserExist(e)
   }
 
   async function handleSubmit(e) {
@@ -40,7 +64,7 @@ function Register() {
           "https://ironrest.herokuapp.com/whatsapp",
           form
         );
-        console.log(response.data);
+        // console.log(response.data);
         setUserId(response.data.insertedId);
         await getQrCode(response.data.insertedId);
         setShowQrCode(true);
@@ -61,6 +85,8 @@ function Register() {
       const response = await axios.get(
         "https://ironrest.herokuapp.com/whatsapp"
       );
+      setUsers(response.data);
+      // console.log(response.data.userName, " <<< console do get");
       const newArray = response.data.filter((user) => {
         if (user.userName) return user.userName.includes(form.userName);
       });
@@ -105,14 +131,14 @@ function Register() {
           </div>
 
           <div className="qrCode">
-          {!showQrCode && (
+            {!showQrCode && (
               <p>
-              The QR Code will appear in this area, if you do not have
-              registration. Scan in the "Connected Devices" area on WhatsApp of
-              your mobile phone
-            </p>
+                The QR Code will appear in this area, if you do not have
+                registration. Scan in the "Connected Devices" area on WhatsApp
+                of your mobile phone.
+              </p>
             )}
-            
+
             {showQrCode && (
               <>
                 <QRCode value={qrCode} fgColor="#35879B" />
