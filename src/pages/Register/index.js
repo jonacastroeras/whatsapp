@@ -19,7 +19,7 @@ function Register() {
   async function getQrCode(receivedUserId) {
     try {
       const getQrCode = await axios.get(
-        "http://localhost:3100/qrcode/" + receivedUserId
+        "https://ironhack.solnustec.com/qrcode/" + receivedUserId
       );
       setQrCode(getQrCode.data.qrCode);
     } catch (error) {
