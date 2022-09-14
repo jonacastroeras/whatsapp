@@ -93,3 +93,14 @@ a:hover {
 .formGroup:last-child{
     margin-top: 5%;
 }
+
+.qrCode{
+    background: white;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+

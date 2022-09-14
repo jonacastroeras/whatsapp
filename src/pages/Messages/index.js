@@ -36,21 +36,24 @@ function Messages() {
 
     try {
       userData.messages.push(form);
+      await axios.post("http://localhost:3100/qrcode/" + userData._id, {
+        message: form.message,
+        number: form.recipient,
+      });
       await axios.put(
         `https://ironrest.herokuapp.com/whatsapp/${params.messageID}`,
         { messages: userData.messages }
       );
       setReload(!reload);
-      setForm({ message: "", hours: "", recipient: "" });
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function handleDelete(index ) {
+  async function handleDelete(index) {
     // e.preventDefault();
     try {
-      const clone = { ...userData }
+      const clone = { ...userData };
       delete clone._id;
 
       clone.messages.splice(index, 1);
@@ -71,12 +74,14 @@ function Messages() {
       <div className="homeBody">
         <h1>{userData.userName}</h1>
         <p>
-          Enter your message, choose the time and recipient of your contact list
+          Enter your message, choose the time and the phone number of your
+          contact list
         </p>
         <div>
           <form onSubmit={handleSubmit} className="columnFlex">
             <div className="formGroup">
               <label>Hours</label>
+              <h6>Indicate the time your message should be sent</h6>
               <input
                 name="hours"
                 type="time"
@@ -86,18 +91,25 @@ function Messages() {
             </div>
             <div className="formGroup">
               <label>Recipient</label>
+              <h6>
+                The phone number must be indicated as follows: +(country
+                code)(phone number with area code)
+              </h6>
               <input
                 name="recipient"
                 value={form.recipient}
                 onChange={handleChange}
+                placeholder={"ex: +5511999999999"}
               />
             </div>
             <div className="formGroup">
               <label>Message</label>
+              <h6>Type your message exactly as you want to send it</h6>
               <textarea
                 name="message"
                 value={form.message}
                 onChange={handleChange}
+                placeholder={"ex: Hi! This is WhatsTime"}
               />
             </div>
             <div className="formGroup">

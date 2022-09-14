@@ -1,15 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import QRCode from "react-qr-code";
 
 function Register() {
   const [usersName, setUsersName] = useState([]);
-
+  const [qrCode, setQrCode] = useState("");
+  const [showQrCode, setShowQrCode] = useState(false);
+  const [userId, setUserId] = useState("");
   const [form, setForm] = useState({
     userName: "",
     password: "",
     messages: [],
   });
+
+  async function getQrCode(receivedUserId) {
+    try {
+      const getQrCode = await axios.get(
+        "http://localhost:3100/qrcode/" + receivedUserId
+      );
+      setQrCode(getQrCode.data.qrCode);
+    } catch (error) {
+      console.log("Server is down");
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -26,13 +40,20 @@ function Register() {
           "https://ironrest.herokuapp.com/whatsapp",
           form
         );
-        navigate(`/messages/${response.data.insertedId}`);
+        console.log(response.data);
+        setUserId(response.data.insertedId);
+        await getQrCode(response.data.insertedId);
+        setShowQrCode(true);
       } catch (error) {
         console.log(error);
       }
     } else {
       navigate(`/messages/${userExists}`);
     }
+  }
+
+  async function completeRegistration() {
+    navigate(`/messages/${userId}`);
   }
 
   async function userExist() {
@@ -43,7 +64,6 @@ function Register() {
       const newArray = response.data.filter((user) => {
         if (user.userName) return user.userName.includes(form.userName);
       });
-      console.log(newArray);
       if (newArray.length > 0) {
         return newArray[0]._id;
       }
@@ -78,10 +98,26 @@ function Register() {
               required
             />
           </div>
+
           <div className="formGroup">
             {/* to="/messages/:messagesID" */}
             <button className="loginButton">LOGIN</button>
           </div>
+
+          <div className="qrCode">
+            {showQrCode && (
+              <>
+                <QRCode value={qrCode} fgColor="#35879B" />
+              </>
+            )}
+          </div>
+          {showQrCode && (
+            <>
+              <button onClick={completeRegistration}>
+                Complete Registration
+              </button>
+            </>
+          )}
         </form>
       </div>
     </>
