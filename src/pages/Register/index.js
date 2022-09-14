@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import QRCode from "react-qr-code";
+import { AiFillWarning } from 'react-icons/ai';
 
 function Register() {
   const [users, setUsers] = useState([]);
@@ -14,7 +15,7 @@ function Register() {
     messages: [],
   });
 
-  
+
 
   async function getQrCode(receivedUserId) {
     try {
@@ -40,7 +41,7 @@ function Register() {
   //           return window.alert("the name is taken");
   //         }
   //       });
-        
+
   //     } catch (error) {
   //       console.log(error)
   //     }
@@ -72,7 +73,12 @@ function Register() {
         console.log(error);
       }
     } else {
-      navigate(`/messages/${userExists}`);
+      if (userExists.password === form.password) {
+        navigate(`/messages/${userExists._id}`);
+      } else {
+        alert("user or password incorrect")
+      }
+
     }
   }
 
@@ -91,7 +97,7 @@ function Register() {
         if (user.userName) return user.userName.includes(form.userName);
       });
       if (newArray.length > 0) {
-        return newArray[0]._id;
+        return newArray[0];
       }
       return false;
     } catch (error) {
@@ -132,11 +138,14 @@ function Register() {
 
           <div className="qrCode">
             {!showQrCode && (
-              <p>
-                The QR Code will appear in this area, if you do not have
-                registration. Scan in the "Connected Devices" area on WhatsApp
-                of your mobile phone.
-              </p>
+              <>
+                <AiFillWarning />
+                <p>
+                  The <strong> QR Code will appear</strong> in this area, if you do not have
+                  registration. Scan in the "Connected Devices" area on WhatsApp
+                  of your mobile phone.
+                </p>
+              </>
             )}
 
             {showQrCode && (
