@@ -84,7 +84,7 @@ function Messages() {
                             <h6>Indicate the time your message should be sent</h6>
                             <input
                                 name="hours"
-                                type="time"
+                                type="datetime-local"
                                 value={form.hours}
                                 onChange={handleChange}
                             />
