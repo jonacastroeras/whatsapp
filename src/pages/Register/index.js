@@ -105,6 +105,14 @@ function Register() {
           </div>
 
           <div className="qrCode">
+          {!showQrCode && (
+              <p>
+              The QR Code will appear in this area, if you do not have
+              registration. Scan in the "Connected Devices" area on WhatsApp of
+              your mobile phone
+            </p>
+            )}
+            
             {showQrCode && (
               <>
                 <QRCode value={qrCode} fgColor="#35879B" />

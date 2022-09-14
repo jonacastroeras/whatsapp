@@ -12,7 +12,6 @@ function HomePage() {
 
         <div className="buttonGroup">
           <Link to="/register">Get Started</Link>
-          <Link to="/register">Register</Link>
         </div>
       </div>
     </>
