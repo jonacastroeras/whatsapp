@@ -47,16 +47,16 @@ function Messages() {
     }
   }
 
-  async function handleDelete(index) {
+  async function handleDelete(index ) {
     // e.preventDefault();
     try {
-      const clone = { ...form.messages };
+      const clone = { ...userData }
       delete clone._id;
 
       clone.messages.splice(index, 1);
 
       await axios.put(
-        `https://ironrest.herokuapp.com/whatsapp/${form._id}`,
+        `https://ironrest.herokuapp.com/whatsapp/${userData._id}`,
         clone
       );
 
