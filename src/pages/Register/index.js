@@ -72,7 +72,6 @@ function Register() {
         "https://ironrest.herokuapp.com/whatsapp"
       );
       setUsers(response.data);
-      // console.log(response.data.userName, " <<< console do get");
       const newArray = response.data.filter((user) => {
         if (user.userName) return user.userName.includes(form.userName);
       });
@@ -88,7 +87,6 @@ function Register() {
 
   return (
     <>
-      {/* qr code condicional*/}
       <div className="homeBody">
         <form className="columnFlex" onSubmit={handleSubmit}>
           <div className="formGroup">
@@ -112,7 +110,6 @@ function Register() {
           </div>
 
           <div className="formGroup">
-            {/* to="/messages/:messagesID" */}
             <button className="loginButton">LOGIN</button>
           </div>
 

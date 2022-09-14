@@ -8,7 +8,9 @@ function Messages() {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [reload, setReload] = useState(false);
-  //   const [message, setMessage] = useState([]);
+  const [messageEdit, setmessageEdit] = useState(); //atencao
+  const [showForm, setShowForm] = useState(false);
+
   useEffect(() => {
     setIsLoading(true);
     async function getUserData() {
@@ -51,7 +53,6 @@ function Messages() {
   }
 
   async function handleDelete(index) {
-    // e.preventDefault();
     try {
       const clone = { ...userData };
       delete clone._id;
@@ -69,9 +70,27 @@ function Messages() {
     }
   }
 
+  // async function editMessage(index, e) {
+  //   e.preventDefault();
+  //   try {
+  //     const clone = { ...userData };
+  //     delete clone._id;
+
+  //     clone.messages[index] = messageEdit;
+
+  //     await axios.put(
+  //       `https://ironrest.herokuapp.com/whatsapp/${userData._id}`,
+  //       clone
+  //     );
+  //     setReload(!reload);
+  //     setShowForm(!showForm);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   return (
-    <div className="homehome">
-      {/* <div className="parteEscrita"> */}
+    <div>
       <div className="homeBody">
         <h1>{userData.userName}</h1>
         <p>
@@ -85,7 +104,7 @@ function Messages() {
               <h6>Indicate the time your message should be sent</h6>
               <input
                 name="hours"
-                type="time"
+                type="datetime-local"
                 value={form.hours}
                 onChange={handleChange}
               />
@@ -117,7 +136,6 @@ function Messages() {
               <button type="submit">Schedule Message</button>
             </div>
           </form>
-          {/* </div> */}
         </div>
 
         <span>
@@ -128,13 +146,28 @@ function Messages() {
                   return (
                     <span>
                       <li className="mensagens">{element.message}</li>
-                      <button
-                        onClick={() => {
-                          handleDelete(index);
-                        }}
-                      >
-                        Delete
-                      </button>
+                      <>
+                        <button
+                          onClick={() => {
+                            handleDelete(index);
+                          }}
+                        >
+                          Delete
+                        </button>
+                        <button onClick={() => setShowForm(!showForm)}>
+                          Edit Message
+                        </button>
+
+                        {showForm && (
+                          <form onSubmit={handleSubmit}>
+                            <textarea
+                              value={messageEdit}
+                              onChange={handleChange}
+                            />
+                            <button type="submit">salvar</button>
+                          </form>
+                        )}
+                      </>
                     </span>
                   );
                 })}
