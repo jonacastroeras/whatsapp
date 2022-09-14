@@ -70,7 +70,8 @@ function Messages() {
   }
 
   return (
-    <>
+    <div className="homehome">
+      {/* <div className="parteEscrita"> */}
       <div className="homeBody">
         <h1>{userData.userName}</h1>
         <p>
@@ -116,15 +117,17 @@ function Messages() {
               <button type="submit">Schedule Message</button>
             </div>
           </form>
+          {/* </div> */}
         </div>
-        <div>
-          <ul>
+
+        <span>
+          <ul className="mensagens2">
             {!isLoading && (
               <>
                 {userData.messages.map((element, index) => {
                   return (
-                    <>
-                      <li>{element.message}</li>
+                    <span>
+                      <li className="mensagens">{element.message}</li>
                       <button
                         onClick={() => {
                           handleDelete(index);
@@ -132,15 +135,15 @@ function Messages() {
                       >
                         Delete
                       </button>
-                    </>
+                    </span>
                   );
                 })}
               </>
             )}
           </ul>
-        </div>
+        </span>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import QRCode from "react-qr-code";
+import { AiFillWarning } from "react-icons/ai";
+import { Toaster, toast } from "react-hot-toast";
 
 function Register() {
   const [users, setUsers] = useState([]);
@@ -13,8 +15,6 @@ function Register() {
     password: "",
     messages: [],
   });
-
-  
 
   async function getQrCode(receivedUserId) {
     try {
@@ -29,30 +29,8 @@ function Register() {
 
   const navigate = useNavigate();
 
-  // useEffect(()=>{
-
-  //   function checkUserExist(e) {
-  //     console.log(e.target.value)
-  //     try {
-  //       users.forEach((user) => {
-  //         console.log("dentro do map")
-  //         if (user.userName.toLowerCase() === e.target.name.toLowerCase()) {
-  //           return window.alert("the name is taken");
-  //         }
-  //       });
-        
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-
-  //   checkUserExist(e)
-  // },[])
-
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-
-    // checkUserExist(e)
   }
 
   async function handleSubmit(e) {
@@ -64,7 +42,6 @@ function Register() {
           "https://ironrest.herokuapp.com/whatsapp",
           form
         );
-        // console.log(response.data);
         setUserId(response.data.insertedId);
         await getQrCode(response.data.insertedId);
         setShowQrCode(true);
@@ -72,7 +49,16 @@ function Register() {
         console.log(error);
       }
     } else {
-      navigate(`/messages/${userExists}`);
+      if (userExists.password === form.password) {
+        toast.success(
+          "Welcome to your message area! Send a new message or check the ones already sent"
+        );
+        navigate(`/messages/${userExists._id}`);
+      } else {
+        toast.error(
+          "User or password incorrect, try again, or make a new registration"
+        );
+      }
     }
   }
 
@@ -91,7 +77,7 @@ function Register() {
         if (user.userName) return user.userName.includes(form.userName);
       });
       if (newArray.length > 0) {
-        return newArray[0]._id;
+        return newArray[0];
       }
       return false;
     } catch (error) {
@@ -132,11 +118,14 @@ function Register() {
 
           <div className="qrCode">
             {!showQrCode && (
-              <p>
-                The QR Code will appear in this area, if you do not have
-                registration. Scan in the "Connected Devices" area on WhatsApp
-                of your mobile phone.
-              </p>
+              <>
+                <AiFillWarning />
+                <p>
+                  The <strong> QR Code will appear</strong> in this area, if you
+                  do not have registration. Scan in the "Connected Devices" area
+                  on WhatsApp of your mobile phone.
+                </p>
+              </>
             )}
 
             {showQrCode && (
