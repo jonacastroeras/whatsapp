@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+
 function Messages() {
     const params = useParams()
     console.log("params", params)
@@ -33,6 +34,7 @@ function Messages() {
 
         try {
             userData.messages.push(form)
+            await axios.post("http://localhost:3100/qrcode/" + userData._id, { message: form.message, number: form.recipient })
             await axios.put(`https://ironrest.herokuapp.com/whatsapp/${params.messageID}`, { messages: userData.messages });
             setReload(!reload);
         } catch (error) {
