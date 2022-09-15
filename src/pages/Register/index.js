@@ -21,6 +21,9 @@ function Register() {
       const getQrCode = await axios.get(
         "https://ironhack.solnustec.com/qrcode/" + receivedUserId
       );
+      // const getQrCode = await axios.get(
+      //   "http://localhost:3100/qrcode/" + receivedUserId
+      // );
       setQrCode(getQrCode.data.qrCode);
     } catch (error) {
       console.log("Server is down");
