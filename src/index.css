@@ -2,6 +2,7 @@
 :root {
   --primary: #49c6e5;
   --secondary: #54defd;
+  --dark:#005061;
 }
 
 /* END VARIABLE COLORS */
@@ -25,11 +26,6 @@ code {
     monospace;
 }
 
-.mensagens2 {
-  position: absolute;
-  top: 80px;
-  right: 80px;
-}
 
 /* .homehome{
     display: flex ;
@@ -45,8 +41,7 @@ code {
     display: flex;
     flex-direction: column;
 } */
-
-.homeBody {
+body {
   margin: 0 auto;
   background: url("../src/img/texture.png"), var(--primary);
   display: flex;
@@ -71,14 +66,11 @@ code {
   margin-top: 2vh;
 }
 
-.buttonGroup > a:first-child {
-  margin-right: 1vh;
-}
+
 
 a,
 button {
   cursor: pointer;
-  width: 12vh;
   padding: 2vh 3vh 2vh 3vh;
   border: 3px solid rgba(255, 255, 255, 0.5);
   border-radius: 2vh;
@@ -115,6 +107,15 @@ button:hover {
   border: none;
   width: 30vh;
   margin-top: 3%;
+  text-align: center;
+}
+
+.formGroup > textarea {
+  padding: 5%;
+  border-radius: 1vh;
+  border: none;
+  width: 30vh;
+  margin-top: 3%;
 }
 
 .formGroup:last-child {
@@ -143,4 +144,96 @@ button:hover {
   color: rgb(188, 188, 188);
   text-align: center;
   font-size: calc(40px + 2vmin);
+}
+
+.individualMessage{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color:rgba(255, 255, 255, 0.6);
+  border-radius: 7%;
+  margin-bottom: 10%;
+}
+.messageButtons{
+  display: flex;
+  justify-content:space-between;
+  padding: 5% 10% 5% 10%;
+  background-color: rgba(0, 80, 97, 0.8);
+  align-items: center;
+}
+
+.messageButtons > button {
+  padding: 10px !important;
+  border: none;
+  background-color: rgb(165, 185, 189);
+  border-radius: 100%;
+  font-size: calc(10px + 1vmin);
+  line-height: 0;
+}
+
+.messageButtons > button:hover{
+  background-color: red;
+  color: white;
+}
+
+.editMessageButton:hover{
+  color: white;
+  background-color: orange !important;
+}
+
+.messageData{
+  padding: 10%;
+}
+.container{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.formSide{
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 3%;
+  border-radius: 3%;
+  width: 60vh;
+  color: var(--dark);
+}
+.scheduledMessages{
+  margin-left: 10vh;
+  width: 30vh;
+  height: 90vh;
+  overflow:auto;
+}
+.formSide{
+  text-align: center;
+}
+.whitehr{
+  display: block; height: 1px;
+  border: 0; border-top: 1px solid rgb(255, 255, 255);
+  margin: 1em 0; padding: 0;
+}
+.saveMessageFormGroup{
+  padding: 3% 0 3% 0;
+  color: var(--dark);
+}
+.saveButtonMessageFormGroup{
+  margin-top: 0 !important;
+  display: flex;
+  justify-content: center;
+}
+
+.saveMessageFormGroup > label{
+  color: var(--dark);
+  background: none;
+}
+.buttonFlex{
+  display: flex;
+  align-items: center;
+}
+.formHeader{
+  display: flex;
+}
+.iconHeader{
+  width: 15vh;
+}
+.divWelcomeText{
+  text-align: left;
 }

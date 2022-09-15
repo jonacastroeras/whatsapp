@@ -4,11 +4,13 @@ import axios from "axios";
 import QRCode from "react-qr-code";
 import { AiFillWarning } from "react-icons/ai";
 import { Toaster, toast } from "react-hot-toast";
+import loadingImage from "../../img/loading.gif"
 
 function Register() {
   const [users, setUsers] = useState([]);
   const [qrCode, setQrCode] = useState("");
   const [showQrCode, setShowQrCode] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const [form, setForm] = useState({
     userName: "",
@@ -46,7 +48,9 @@ function Register() {
           form
         );
         setUserId(response.data.insertedId);
+        setLoading(true)
         await getQrCode(response.data.insertedId);
+        setLoading(false)
         setShowQrCode(true);
       } catch (error) {
         console.log(error);
@@ -119,12 +123,20 @@ function Register() {
           <div className="qrCode">
             {!showQrCode && (
               <>
-                <AiFillWarning />
-                <p>
-                  The <strong> QR Code will appear</strong> in this area, if you
-                  do not have registration. Scan in the "Connected Devices" area
-                  on WhatsApp of your mobile phone.
-                </p>
+                {loading ? (
+                  <>
+                    <img src={loadingImage} width="30%" />
+                  </>
+                ) : (
+                  <>
+                    <AiFillWarning />
+                    <p>
+                      The <strong> QR Code will appear</strong> in this area, if you
+                      do not have registration. Scan in the "Connected Devices" area
+                      on WhatsApp of your mobile phone.
+                    </p>
+                  </>
+                )}
               </>
             )}
 
