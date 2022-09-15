@@ -27,7 +27,7 @@ function Messages() {
     message: "",
     hours: "",
     recipient: "",
-    status: false
+    status: false,
   });
 
   function handleChange(e) {
@@ -71,24 +71,26 @@ function Messages() {
     }
   }
 
-  // async function editMessage(index, e) {
-  //   e.preventDefault();
-  //   try {
-  //     const clone = { ...userData };
-  //     delete clone._id;
+  async function updateMessage(e, element, index) {
+    e.preventDefault();
+    try {
+      const clone = { ...userData };
+      delete clone._id;
+      console.log("my current message", clone.messages[index]);
 
-  //     clone.messages[index] = messageEdit;
-
-  //     await axios.put(
-  //       `https://ironrest.herokuapp.com/whatsapp/${userData._id}`,
-  //       clone
-  //     );
-  //     setReload(!reload);
-  //     setShowForm(!showForm);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+      const currentMessage = clone.messages[index];
+      setmessageEdit(currentMessage.message);
+      setShowForm(!showForm);
+      await axios.put(
+        `https://ironrest.herokuapp.com/whatsapp/${userData._id}`,
+        clone
+      );
+      setReload(!reload);
+      setShowForm(!showForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -146,7 +148,9 @@ function Messages() {
                 {userData.messages.map((element, index) => {
                   return (
                     <span>
-                      <li className="mensagens">{element.message} {element.status}</li>
+                      <li className="mensagens">
+                        {element.message} {element.status}
+                      </li>
                       <>
                         <button
                           onClick={() => {
@@ -155,7 +159,11 @@ function Messages() {
                         >
                           Delete
                         </button>
-                        <button onClick={() => setShowForm(!showForm)}>
+                        <button
+                          onClick={(event) =>
+                            updateMessage(event, element, index)
+                          }
+                        >
                           Edit Message
                         </button>
 
